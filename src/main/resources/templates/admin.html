@@ -1,93 +1,130 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8"/>
+  <head>
+    <meta charset="UTF-8" />
     <title>All users</title>
-</head>
-<body>
-<style>table {
-    border-spacing: 0 10px;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
-}
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href=".//style.css" /> -->
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        box-sizing: border-box;
+        font-family: "Raleway", sans-serif;
+      }
 
-th {
-    padding: 10px 20px;
-    background: #56433D;
-    color: #F9C941;
-    border-right: 2px solid;
-    font-size: 0.9em;
-}
+      body {
+        background-color: #344a72;
+      }
 
-th:first-child {
-    text-align: left;
-}
+      .container {
+        max-width: 600px;
+        padding: 20px;
+        margin: auto;
+        background-color: white;
+        margin-top: 20px;
+      }
+      .container h2 {
+        margin-bottom: 20px;
+        padding-top: 0px;
+        text-align: center;
+        font-weight: 600;
+      }
 
-th:last-child {
-    border-right: none;
-}
+      .table_blur {
+        width: 90%;
+        margin: auto;
+        text-align: left;
+        color: #666;
+        border: 2px solid #a8a5a5;
+        border-radius: 5px;
+      }
 
-td {
-    vertical-align: middle;
-    padding: 10px;
-    font-size: 14px;
-    text-align: center;
-    border-top: 2px solid #56433D;
-    border-bottom: 2px solid #56433D;
-    border-right: 2px solid #56433D;
-}
+      .table_blur th {
+        font-size: 16px;
+        font-weight: 500;
+        padding: 10px;
+      }
 
-td:first-child {
-    border-left: 2px solid #56433D;
-    border-right: none;
-}
+      .table_blur th {
+        background-color: #fff;
+        color: #666;
+      }
 
-td:nth-child(2) {
-    text-align: left;
-}</style>
-<h2 align="center"> Admin panel</h2>
-<table align="center" class="table_blur" >
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>User name</th>
-        <th>Surname</th>
-        <th>age</th>
-        <th>Role</th>
-        <th>Operations</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${allUser}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.surname}"></td>
-        <td th:text="${user.age}"></td>
-        <td>
-        <span th:each="role : ${user.getRoles()}">
-            <span th:text="${role.getName()}"></span>
-        </span>
-        </td>
-        <td><a th:href="@{admin/user-update/{id}(id=${user.id})}">
-            <input type="submit" value="Update"/></a>
+      .btn-container {
+        max-width: 400px;
+        margin: auto;
+      }
 
-            <form th:method="DELETE" th:action="@{admin/user-delete/{id}(id=${user.getId()})}">
-                <input type="submit" value="Delete"/>
-            </form>
-        </td>
-    </tr>
-    </tbody>
+      .btn {
+        display: block;
+        width: 80%;
+        border: 1px solid #269926;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        background-color: #49c1a2;
+        height: 30px;
+        color: white;
+        font-size: 14px;
+        font-weight: 800;
+      }
+    </style>
+    <div class="container">
+      <h2 align="center">Admin panel</h2>
+      <table align="center" class="table_blur">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>User Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Role</th>
+            <th>Operations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="user : ${allUser}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.surname}"></td>
+            <td th:text="${user.age}"></td>
+            <td>
+              <span th:each="role : ${user.getRoles()}">
+                <span th:text="${role.getName()}"></span>
+              </span>
+            </td>
+            <td>
+              <a th:href="@{admin/user-update/{id}(id=${user.id})}">
+                <input type="submit" value="Update" class="btn"
+              /></a>
 
-</table>
-</div>
-<a th:href="@{admin/user-save}">
-    <input type="submit" value="Create user"/>
-</a>
-<br>
-<a th:href="@{/login}">
-    <input type="submit" value="Exit"/>
-</a>
-</div>
-</body>
+              <form
+                th:method="DELETE"
+                th:action="@{admin/user-delete/{id}(id=${user.getId()})}"
+              >
+                <input type="submit" value="Delete" class="btn" />
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="btn-container">
+        <a th:href="@{admin/user-save}">
+          <input type="submit" value="Create user" class="btn" />
+        </a>
+        <a th:href="@{/login}">
+          <input type="submit" value="Exit" class="btn" />
+        </a>
+      </div>
+    </div>
+  </body>
 </html>
